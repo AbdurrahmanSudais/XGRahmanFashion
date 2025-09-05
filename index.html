@@ -59,8 +59,6 @@
     /* Capitals styled with a Fraktur/blackletter vibe (like X logo energy) */
     .name .cap{font-family: 'UnifrakturMaguntia', cursive; color: var(--green); font-weight: 400; letter-spacing: 0}
     .name .cap.gold{color: var(--gold)}
-    /* Make X and G bigger */
-    .name .cap.big{font-size: 1.3em; position: relative; top: -2px}
 
     .nav-links{display:flex; gap:14px}
     .btn{display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; border-radius: var(--radius); font-weight:600; transition:transform .2s ease, box-shadow .2s ease, background .2s ease; cursor:pointer}
@@ -81,8 +79,9 @@
     .btn-outline{background: transparent; border:1px dashed rgba(212,175,55,.45)}
 
     .hero-right{position:relative}
-    .hero-card{height:100%; min-height:340px; overflow:hidden}
-    .hero-media{position:absolute; inset:0; background: url('https://images.unsplash.com/photo-1548630826-2d6b1eaf8b02?q=80&w=1880&auto=format&fit=crop') center/cover no-repeat; filter:contrast(1.05) saturate(1.05)}
+    .hero-card{height:100%; min-height:340px; overflow:hidden; cursor:pointer}
+    .hero-media{position:absolute; inset:0; background: url('https://images.unsplash.com/photo-1548630826-2d6b1eaf8b02?q=80&w=1880&auto=format&fit=crop') center/cover no-repeat; filter:contrast(1.05) saturate(1.05); transition: transform .3s ease}
+    .hero-card:hover .hero-media{transform: scale(1.03)}
     .hero-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(11,11,11,.1), rgba(11,11,11,.8))}
 
     /* ---------- Section shells ---------- */
@@ -92,32 +91,21 @@
 
     /* ---------- Gallery (photos move up on scroll) ---------- */
     .gallery{display:grid; grid-template-columns: repeat(12, 1fr); gap:16px}
-    .card{grid-column: span 4; min-height:260px; position:relative; overflow:hidden; cursor:pointer; transition: transform .3s ease, box-shadow .3s ease}
-    .card:hover{transform: scale(1.02); box-shadow: 0 15px 40px rgba(212,175,55,.2)}
+    .card{grid-column: span 4; min-height:260px; position:relative; overflow:hidden; cursor:pointer}
     .card.tall{grid-row: span 2; min-height: 420px}
     .card .img{position:absolute; inset:0; background-size:cover; background-position:center; filter: saturate(1.03); transform: translateY(20px); transition: transform .8s cubic-bezier(.2,.6,.2,1)}
+    .card:hover .img{transform: translateY(0) scale(1.03)}
     .card .scrim{position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.65) 100%)}
     .card .label{position:absolute; left:12px; bottom:12px; font-weight:600; letter-spacing:.4px}
 
-    /* ---------- Add Images Button ---------- */
-    .add-images-section{text-align: center; margin: 40px 0}
-    .file-input-wrapper{position:relative; display:inline-block}
-    .file-input{position:absolute; opacity:0; width:100%; height:100%; cursor:pointer}
-    
-    /* ---------- Modal for image popup ---------- */
-    .modal{display:none; position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:1000; backdrop-filter:blur(5px)}
-    .modal.show{display:flex; align-items:center; justify-content:center; animation: fadeIn .3s ease}
-    .modal-content{max-width:90vw; max-height:90vh; position:relative}
-    .modal-image{width:100%; height:100%; object-fit:contain; border-radius:var(--radius)}
-    .modal-close{position:absolute; top:-50px; right:0; background:var(--gold); color:var(--black); border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:20px; font-weight:bold; transition:background .2s ease}
-    .modal-close:hover{background:var(--gold-soft)}
-    .modal-nav{position:absolute; top:50%; transform:translateY(-50%); background:rgba(212,175,55,.8); color:var(--black); border:none; width:50px; height:50px; border-radius:50%; cursor:pointer; font-size:20px; font-weight:bold; transition:background .2s ease}
-    .modal-nav:hover{background:var(--gold)}
-    .modal-prev{left:-70px}
-    .modal-next{right:-70px}
-    .modal-info{position:absolute; bottom:-60px; left:0; right:0; text-align:center; color:var(--text); font-weight:600}
-
-    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
+    /* ---------- Image Popup Modal ---------- */
+    .popup-overlay{position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,.9); z-index:1000; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition: opacity .3s ease, visibility .3s ease; backdrop-filter: blur(8px)}
+    .popup-overlay.show{opacity:1; visibility:visible}
+    .popup-content{position:relative; max-width:90vw; max-height:90vh; background:var(--bg); border-radius:var(--radius); overflow:hidden; box-shadow: var(--shadow)}
+    .popup-image{width:100%; height:100%; object-fit:contain; max-height:80vh}
+    .popup-close{position:absolute; top:10px; right:10px; width:40px; height:40px; background:rgba(0,0,0,.7); color:white; border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; transition: background .2s ease}
+    .popup-close:hover{background:rgba(0,0,0,.9)}
+    .popup-title{position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,.8)); color:white; padding:20px; font-weight:600; font-size:18px}
 
     /* ---------- Services ---------- */
     .services{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px}
@@ -132,7 +120,19 @@
     input::placeholder, textarea::placeholder{color:#98a28d}
     textarea{min-height:120px; resize:vertical}
 
-    .btn-send{padding:12px 18px; font-weight:700}
+    .btn-send{padding:12px 18px; font-weight:700; position:relative}
+    .btn-send:disabled{opacity:.6; cursor:not-allowed; transform:none!important}
+    
+    /* Loading spinner */
+    .spinner{display:none; width:16px; height:16px; border:2px solid transparent; border-top:2px solid currentColor; border-radius:50%; animation:spin .8s linear infinite; margin-right:8px}
+    .btn-send.loading .spinner{display:inline-block}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Status messages */
+    .status-message{margin-top:12px; padding:10px; border-radius:var(--radius); font-weight:600; text-align:center; opacity:0; transform:translateY(-10px); transition: opacity .3s ease, transform .3s ease}
+    .status-message.show{opacity:1; transform:translateY(0)}
+    .status-message.success{background:rgba(34,197,94,.2); color:#22c55e; border:1px solid rgba(34,197,94,.3)}
+    .status-message.error{background:rgba(239,68,68,.2); color:#ef4444; border:1px solid rgba(239,68,68,.3)}
 
     .socials{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
     .socials a{display:flex; align-items:center; gap:8px; padding:10px 12px; font-weight:600}
@@ -152,13 +152,15 @@
       .card{grid-column: span 6}
       .services{grid-template-columns: repeat(2, minmax(0,1fr))}
       .contact-wrap{grid-template-columns:1fr}
-      .modal-nav{display:none}
-      .modal-close{top:-40px; right:10px}
+      .popup-content{max-width:95vw}
     }
     @media (max-width: 640px){
       .card{grid-column: span 12}
       .services{grid-template-columns: 1fr}
       .nav-links{display:none}
+      .popup-image{max-height:70vh}
+      .socials{justify-content:center}
+      .socials a{flex-direction:column; gap:4px; padding:8px; font-size:12px}
     }
   </style>
 </head>
@@ -169,7 +171,7 @@
     <div class="nav-inner">
       <div class="brand">
         <div class="name" aria-label="XGRahmanFashion">
-          <span class="cap big">X</span><span class="cap big">G</span><span class="cap">R</span>ahman<span class="cap gold">F</span>ashion
+          <span class="cap">X</span>G<span class="cap">R</span>ahman<span class="cap gold">F</span>ashion
         </div>
         <div class="tag">Bespoke Tailoring • Lagos</div>
       </div>
@@ -185,7 +187,7 @@
   <header class="hero">
     <div class="hero-left gold-border reveal">
       <h1 class="headline">
-        <span class="cap big">X</span><span class="cap big">G</span><span class="cap">R</span>ahman<span class="cap accent">F</span>ashion
+        <span class="cap">X</span>G<span class="cap">R</span>ahman<span class="cap accent">F</span>ashion
       </h1>
       <p class="sub">Fine cuts. Clean lines. Fabric stories tailored to you. From agbada to tux, our craft blends tradition with modern minimalism.</p>
       <div class="cta-group">
@@ -194,7 +196,7 @@
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-card gold-border reveal" style="--delay:.1s">
+      <div class="hero-card gold-border reveal clickable-image" data-image="https://images.unsplash.com/photo-1548630826-2d6b1eaf8b02?q=80&w=1880&auto=format&fit=crop" data-title="Signature Style" style="--delay:.1s">
         <div class="hero-media" aria-hidden="true"></div>
         <div class="hero-overlay"></div>
       </div>
@@ -204,64 +206,49 @@
   <!-- GALLERY -->
   <section id="gallery">
     <h2 class="section-title reveal">Signature Gallery</h2>
-    <p class="section-sub reveal">Click on any image to view in full size. Add your own designs to showcase your work.</p>
+    <p class="section-sub reveal">Different styles, different stories. Tap any image to view in detail.</p>
 
-    <div class="gallery" id="gallery-grid">
-      <!-- Each card rises (moves up) as you scroll into view and is clickable -->
-      <div class="card gold-border reveal clickable-image" data-src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1880&auto=format&fit=crop" data-label="Two‑piece Classic">
+    <div class="gallery">
+      <!-- Each card rises (moves up) as you scroll into view -->
+      <div class="card gold-border reveal clickable-image" data-image="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1880&auto=format&fit=crop" data-title="Two‑piece Classic">
         <div class="img" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1880&auto=format&fit=crop')"></div>
         <div class="scrim"></div>
         <div class="label">Two‑piece Classic</div>
       </div>
-      <div class="card tall gold-border reveal clickable-image" data-src="https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=1880&auto=format&fit=crop" data-label="Gold Trim Aso‑Oke">
+      <div class="card tall gold-border reveal clickable-image" data-image="https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=1880&auto=format&fit=crop" data-title="Gold Trim Aso‑Oke">
         <div class="img" style="background-image:url('https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=1880&auto=format&fit=crop')"></div>
         <div class="scrim"></div>
         <div class="label">Gold Trim Aso‑Oke</div>
       </div>
-      <div class="card gold-border reveal clickable-image" data-src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1880&auto=format&fit=crop" data-label="Evening Dress">
+      <div class="card gold-border reveal clickable-image" data-image="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1880&auto=format&fit=crop" data-title="Evening Dress">
         <div class="img" style="background-image:url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1880&auto=format&fit=crop')"></div>
         <div class="scrim"></div>
         <div class="label">Evening Dress</div>
       </div>
-      <div class="card gold-border reveal clickable-image" data-src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1880&auto=format&fit=crop" data-label="Custom Tux">
+      <div class="card gold-border reveal clickable-image" data-image="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1880&auto=format&fit=crop" data-title="Custom Tux">
         <div class="img" style="background-image:url('https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1880&auto=format&fit=crop')"></div>
         <div class="scrim"></div>
         <div class="label">Custom Tux</div>
       </div>
-      <div class="card gold-border reveal clickable-image" data-src="https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1880&auto=format&fit=crop" data-label="Casual Linen">
+      <div class="card gold-border reveal clickable-image" data-image="https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1880&auto=format&fit=crop" data-title="Casual Linen">
         <div class="img" style="background-image:url('https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1880&auto=format&fit=crop')"></div>
         <div class="scrim"></div>
         <div class="label">Casual Linen</div>
       </div>
-      <div class="card tall gold-border reveal clickable-image" data-src="https://images.unsplash.com/photo-1519741498880-71fdfd93424e?q=80&w=1880&auto=format&fit=crop" data-label="Bridal Couture">
+      <div class="card tall gold-border reveal clickable-image" data-image="https://images.unsplash.com/photo-1519741498880-71fdfd93424e?q=80&w=1880&auto=format&fit=crop" data-title="Bridal Couture">
         <div class="img" style="background-image:url('https://images.unsplash.com/photo-1519741498880-71fdfd93424e?q=80&w=1880&auto=format&fit=crop')"></div>
         <div class="scrim"></div>
         <div class="label">Bridal Couture</div>
       </div>
     </div>
-
-    <!-- Add Images Section -->
-    <div class="add-images-section reveal">
-      <div class="file-input-wrapper">
-        <button class="btn btn-primary gold-border">
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
-          </svg>
-          Add New Images
-        </button>
-        <input type="file" class="file-input" id="imageInput" multiple accept="image/*">
-      </div>
-    </div>
   </section>
 
-  <!-- Modal for image popup -->
-  <div class="modal" id="imageModal">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-      <button class="modal-nav modal-prev" onclick="prevImage()">‹</button>
-      <img class="modal-image" id="modalImage" src="" alt="">
-      <button class="modal-nav modal-next" onclick="nextImage()">›</button>
-      <div class="modal-info" id="modalInfo"></div>
+  <!-- IMAGE POPUP MODAL -->
+  <div class="popup-overlay" id="imagePopup">
+    <div class="popup-content gold-border">
+      <button class="popup-close" onclick="closeImagePopup()">&times;</button>
+      <img class="popup-image" id="popupImage" src="" alt="">
+      <div class="popup-title" id="popupTitle"></div>
     </div>
   </div>
 
@@ -291,12 +278,16 @@
     <p class="section-sub reveal">Book a fitting, ask a question, or say hello.</p>
 
     <div class="contact-wrap">
-      <form class="gold-border reveal" onsubmit="event.preventDefault(); alert('Thanks! We\'ll get back to you soon.'); this.reset();">
-        <input class="gold-border" type="text" placeholder="Your Name" required>
-        <input class="gold-border" type="email" placeholder="Email Address" required>
-        <input class="gold-border" type="tel" placeholder="Phone (WhatsApp)">
-        <textarea class="gold-border" placeholder="Tell us what you need…"></textarea>
-        <button class="btn btn-primary btn-send gold-border" type="submit">Send Message</button>
+      <form class="gold-border reveal" id="contactForm">
+        <input class="gold-border" type="text" name="name" placeholder="Your Name" required>
+        <input class="gold-border" type="email" name="email" placeholder="Email Address" required>
+        <input class="gold-border" type="tel" name="phone" placeholder="Phone (WhatsApp)">
+        <textarea class="gold-border" name="message" placeholder="Tell us what you need…" required></textarea>
+        <button class="btn btn-primary btn-send gold-border" type="submit">
+          <span class="spinner"></span>
+          <span class="btn-text">Send Message</span>
+        </button>
+        <div class="status-message" id="statusMessage"></div>
       </form>
       <div class="gold-border reveal" style="padding:18px">
         <h3 style="margin-top:0">Visit Our Studio</h3>
@@ -314,7 +305,7 @@
             @xgrahmanfashion
           </a>
           <!-- WhatsApp -->
-          <a class="btn btn-outline gold-border" href="#" aria-label="WhatsApp">
+          <a class="btn btn-outline gold-border" href="https://wa.me/2348012345678" aria-label="WhatsApp">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3.9A10 10 0 0 0 3.5 17.6L2 22l4.5-1.4A10 10 0 1 0 20 3.9m-8 16.1c-1.7 0-3.3-.5-4.7-1.6L7 18l-2.2.7.7-2.1-.3-.5A7.9 7.9 0 1 1 12 20m4.5-5.8c-.2-.1-1.4-.8-1.6-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.8 1-.2.2-.3.2-.6.1-.2-.1-1-.4-2-1.2-.7-.5-1.2-1.2-1.4-1.4-.2-.2 0-.3.1-.4.1-.1.2-.2.3-.3.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.1 0-.2 0-.3 0-.1-.6-1.6-.8-2.1-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.3 0-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7 1.2.5 1.7.6 2 .5.3 0 1-.4 1.1-.7.1-.3.1-.6.1-.7 0-.1-.1-.1-.2-.2"/></svg>
             +234 801 234 5678
           </a>
@@ -333,25 +324,18 @@
   </footer>
 
   <script>
-    // Gallery images array for modal navigation
-    let galleryImages = [];
-    let currentImageIndex = 0;
-
-    // Put uppercase letters inside spans with .cap for the brand name
+    // Put uppercase letters inside spans with .cap for the brand name (safety if text changes)
     (function(){
       const brandEls = document.querySelectorAll('.name');
       brandEls.forEach(el=>{
-        const text = el.textContent; 
-        if(!text) return;
+        const text = el.textContent; if(!text) return;
         el.innerHTML = '';
         for(const ch of text){
           if(/[A-Z]/.test(ch)){
             const span = document.createElement('span');
             span.className = 'cap';
             if(ch === 'F') span.classList.add('gold');
-            if(ch === 'X' || ch === 'G') span.classList.add('big');
-            span.textContent = ch; 
-            el.appendChild(span);
+            span.textContent = ch; el.appendChild(span);
           } else {
             el.append(ch);
           }
@@ -359,107 +343,131 @@
       });
     })();
 
-    // Initialize gallery images array
-    function updateGalleryImages() {
-      galleryImages = Array.from(document.querySelectorAll('.clickable-image')).map(card => ({
-        src: card.dataset.src,
-        label: card.dataset.label
-      }));
-    }
-
-    // Modal functions
-    function openModal(index) {
-      currentImageIndex = index;
-      const modal = document.getElementById('imageModal');
-      const modalImage = document.getElementById('modalImage');
-      const modalInfo = document.getElementById('modalInfo');
+    // Image popup functionality
+    function openImagePopup(imageSrc, title) {
+      const popup = document.getElementById('imagePopup');
+      const popupImage = document.getElementById('popupImage');
+      const popupTitle = document.getElementById('popupTitle');
       
-      modalImage.src = galleryImages[index].src;
-      modalInfo.textContent = galleryImages[index].label;
-      modal.classList.add('show');
-      document.body.style.overflow = 'hidden';
+      popupImage.src = imageSrc;
+      popupImage.alt = title;
+      popupTitle.textContent = title;
+      
+      popup.classList.add('show');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
 
-    function closeModal() {
-      const modal = document.getElementById('imageModal');
-      modal.classList.remove('show');
-      document.body.style.overflow = '';
+    function closeImagePopup() {
+      const popup = document.getElementById('imagePopup');
+      popup.classList.remove('show');
+      document.body.style.overflow = ''; // Restore scrolling
     }
 
-    function nextImage() {
-      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-      const modalImage = document.getElementById('modalImage');
-      const modalInfo = document.getElementById('modalInfo');
-      modalImage.src = galleryImages[currentImageIndex].src;
-      modalInfo.textContent = galleryImages[currentImageIndex].label;
-    }
-
-    function prevImage() {
-      currentImageIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
-      const modalImage = document.getElementById('modalImage');
-      const modalInfo = document.getElementById('modalInfo');
-      modalImage.src = galleryImages[currentImageIndex].src;
-      modalInfo.textContent = galleryImages[currentImageIndex].label;
-    }
-
-    // Add click event to gallery images
-    function addImageClickEvents() {
-      document.querySelectorAll('.clickable-image').forEach((card, index) => {
-        card.addEventListener('click', () => openModal(index));
+    // Add click listeners to all clickable images
+    document.addEventListener('DOMContentLoaded', function() {
+      const clickableImages = document.querySelectorAll('.clickable-image');
+      clickableImages.forEach(img => {
+        img.addEventListener('click', function() {
+          const imageSrc = this.dataset.image;
+          const title = this.dataset.title;
+          openImagePopup(imageSrc, title);
+        });
       });
-    }
 
-    // File upload functionality
-    document.getElementById('imageInput').addEventListener('change', function(e) {
-      const files = e.target.files;
-      const gallery = document.getElementById('gallery-grid');
-      
-      Array.from(files).forEach(file => {
-        if (file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = function(event) {
-            const imageUrl = event.target.result;
-            const fileName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' ');
-            const label = fileName.charAt(0).toUpperCase() + fileName.slice(1);
-            
-            // Create new card
-            const newCard = document.createElement('div');
-            newCard.className = 'card gold-border reveal clickable-image show';
-            newCard.dataset.src = imageUrl;
-            newCard.dataset.label = label;
-            newCard.style.gridColumn = 'span 4';
-            
-            newCard.innerHTML = `
-              <div class="img" style="background-image:url('${imageUrl}'); transform: translateY(0)"></div>
-              <div class="scrim"></div>
-              <div class="label">${label}</div>
-            `;
-            
-            gallery.appendChild(newCard);
-            
-            // Update gallery images array and add click event
-            updateGalleryImages();
-            addImageClickEvents();
-          };
-          reader.readAsDataURL(file);
+      // Close popup when clicking outside the image
+      document.getElementById('imagePopup').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeImagePopup();
         }
       });
+
+      // Close popup with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeImagePopup();
+        }
+      });
+    });
+
+    // Contact form functionality
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
       
-      // Reset file input
-      e.target.value = '';
-    });
+      const btn = this.querySelector('.btn-send');
+      const statusMessage = document.getElementById('statusMessage');
+      const formData = new FormData(this);
+      
+      // Show loading state
+      btn.classList.add('loading');
+      btn.disabled = true;
+      statusMessage.className = 'status-message';
+      statusMessage.textContent = '';
+      
+      try {
+        // Using Formspree with a proper endpoint
+        const response = await fetch('https://formspree.io/f/mjkeppav', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone') || 'Not provided',
+            message: formData.get('message')
+          })
+        });
 
-    // Close modal when clicking outside or pressing Escape
-    document.getElementById('imageModal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
+        if (response.ok) {
+          statusMessage.className = 'status-message success show';
+          statusMessage.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+          this.reset();
+        } else {
+          throw new Error('Network response was not ok');
+        }
+        
+      } catch (error) {
+        console.error('Error sending message:', error);
+        
+        // Try alternative method - Web3Forms (more reliable)
+        try {
+          const altResponse = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              access_key: '8f5c6d9a-4e2b-4f1a-9c3d-7e8f6a5b4c3d', // Demo key
+              name: formData.get('name'),
+              email: formData.get('email'),
+              phone: formData.get('phone') || 'Not provided',
+              message: formData.get('message'),
+              subject: `New Contact from XGRahmanFashion - ${formData.get('name')}`,
+              to: 'abdurrahmansudais539@gmail.com'
+            })
+          });
 
-    document.addEventListener('keydown', function(e) {
-      const modal = document.getElementById('imageModal');
-      if (modal.classList.contains('show')) {
-        if (e.key === 'Escape') closeModal();
-        if (e.key === 'ArrowRight') nextImage();
-        if (e.key === 'ArrowLeft') prevImage();
+          if (altResponse.ok) {
+            statusMessage.className = 'status-message success show';
+            statusMessage.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+            this.reset();
+          } else {
+            throw new Error('Alternative service failed');
+          }
+        } catch (altError) {
+          console.error('Alternative service also failed:', altError);
+          statusMessage.className = 'status-message error show';
+          statusMessage.textContent = 'Unable to send message at the moment. Please try again later or contact us directly via WhatsApp.';
+        }
+      } finally {
+        // Hide loading state
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        
+        // Hide status message after 5 seconds
+        setTimeout(() => {
+          statusMessage.classList.remove('show');
+        }, 5000);
       }
     });
 
@@ -482,10 +490,6 @@
       const y = window.scrollY * 0.15;
       if(heroMedia) heroMedia.style.transform = `translateY(${y}px) scale(1.05)`;
     });
-
-    // Initialize everything
-    updateGalleryImages();
-    addImageClickEvents();
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
