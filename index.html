@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
   <title>XGRahmanFashion</title>
   <meta name="description" content="XGRahmanFashion — bespoke tailoring and fashion design."/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,11 +19,11 @@
       --bg: #0f1210;            /* deep near-black with a green tint */
       --text: #e7eadf;          /* warm off-white */
       --muted: #b9c0ad;
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 12px;
+      --shadow: 0 8px 25px rgba(0,0,0,.3);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%; font-size: 16px}
     body{
       margin:0; background: radial-gradient(1200px 600px at 80% -10%, rgba(212,175,55,.08), transparent 60%),
                  radial-gradient(1000px 500px at 0% 100%, rgba(59,77,59,.12), transparent 60%),
@@ -51,116 +51,267 @@
 
     /* ---------- Navbar ---------- */
     .nav{position:sticky; top:0; z-index:50; backdrop-filter: blur(8px); background: rgba(11,11,11,.55); border-bottom:1px solid rgba(212,175,55,.15)}
-    .nav-inner{max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between}
-    .brand{display:flex; align-items:baseline; gap:.5rem}
-    .brand .name{font-size: clamp(28px, 4vw, 44px); font-weight:900; letter-spacing:1px; color:var(--green)}
-    .brand .tag{font-size:14px; color:var(--muted)}
+    .nav-inner{max-width:1200px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; flex-wrap: wrap; gap: 8px}
+    .brand{display:flex; align-items:baseline; gap:.4rem}
+    .brand .name{font-size: clamp(20px, 3.5vw, 36px); font-weight:900; letter-spacing:1px; color:var(--green)}
+    .brand .tag{font-size: clamp(10px, 1.8vw, 13px); color:var(--muted)}
 
     /* Capitals styled with a Fraktur/blackletter vibe (like X logo energy) */
     .name .cap{font-family: 'UnifrakturMaguntia', cursive; color: var(--green); font-weight: 400; letter-spacing: 0}
     .name .cap.gold{color: var(--gold)}
 
-    .nav-links{display:flex; gap:14px}
-    .btn{display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; border-radius: var(--radius); font-weight:600; transition:transform .2s ease, box-shadow .2s ease, background .2s ease; cursor:pointer}
+    .nav-links{display:flex; gap:6px; flex-wrap: wrap}
+    .btn{display:inline-flex; align-items:center; justify-content:center; padding:8px 14px; border-radius: var(--radius); font-weight:600; transition:transform .2s ease, box-shadow .2s ease, background .2s ease; cursor:pointer; font-size: clamp(12px, 1.8vw, 15px)}
     .btn:hover{transform:translateY(-2px)}
     .btn:active{transform:translateY(0)}
     .btn-ghost{border:1px solid rgba(212,175,55,.35); background:rgba(0,0,0,.2)}
 
     /* ---------- Hero ---------- */
-    .hero{max-width:1200px; margin:0 auto; display:grid; grid-template-columns: 1.2fr 1fr; gap:28px; padding:60px 20px 30px}
-    .hero-left{padding:24px; border-radius:var(--radius)}
-    .headline{font-family: 'Playfair Display', serif; font-weight:900; font-size: clamp(36px, 5vw, 68px); line-height:1.05; margin:0 0 16px}
+    .hero{max-width:1200px; margin:0 auto; display:grid; grid-template-columns: 1fr; gap:20px; padding:20px 16px}
+    .hero-left{padding:20px; border-radius:var(--radius)}
+    .headline{font-family: 'Playfair Display', serif; font-weight:900; font-size: clamp(24px, 4.5vw, 54px); line-height:1.1; margin:0 0 14px}
     .headline .accent{color:var(--gold)}
-    .sub{font-size: clamp(16px, 2.2vw, 18px); color:var(--muted); margin-bottom: 22px}
+    .sub{font-size: clamp(14px, 2vw, 17px); color:var(--muted); margin-bottom: 18px}
 
-    .cta-group{display:flex; gap:12px; flex-wrap:wrap}
+    .cta-group{display:flex; gap:10px; flex-wrap:wrap}
     .btn-primary{background: linear-gradient(120deg, rgba(212,175,55,.12), rgba(59,77,59,.25)); border:1px solid rgba(212,175,55,.45)}
     .btn-primary:hover{box-shadow:0 10px 30px rgba(212,175,55,.15)}
     .btn-outline{background: transparent; border:1px dashed rgba(212,175,55,.45)}
 
     .hero-right{position:relative}
-    .hero-card{height:100%; min-height:340px; overflow:hidden; cursor:pointer}
+    .hero-card{height:100%; min-height:220px; overflow:hidden; cursor:pointer}
     .hero-media{position:absolute; inset:0; background: url('https://images.unsplash.com/photo-1548630826-2d6b1eaf8b02?q=80&w=1880&auto=format&fit=crop') center/cover no-repeat; filter:contrast(1.05) saturate(1.05); transition: transform .3s ease}
     .hero-card:hover .hero-media{transform: scale(1.03)}
     .hero-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(11,11,11,.1), rgba(11,11,11,.8))}
 
     /* ---------- Section shells ---------- */
-    section{max-width:1200px; margin:0 auto; padding:40px 20px}
-    .section-title{font-family:'Playfair Display', serif; font-size: clamp(26px, 3.2vw, 42px); margin-bottom: 14px}
-    .section-sub{color:var(--muted); margin-bottom: 24px}
+    section{max-width:1200px; margin:0 auto; padding:30px 16px}
+    .section-title{font-family:'Playfair Display', serif; font-size: clamp(22px, 3vw, 36px); margin-bottom: 12px}
+    .section-sub{color:var(--muted); margin-bottom: 20px; font-size: clamp(13px, 1.8vw, 15px)}
 
     /* ---------- Gallery (photos move up on scroll) ---------- */
-    .gallery{display:grid; grid-template-columns: repeat(12, 1fr); gap:16px}
-    .card{grid-column: span 4; min-height:260px; position:relative; overflow:hidden; cursor:pointer}
-    .card.tall{grid-row: span 2; min-height: 420px}
+    .gallery{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px}
+    .card{grid-column: span 6; min-height:160px; position:relative; overflow:hidden; cursor:pointer}
+    .card.tall{grid-row: span 2; min-height: 280px}
     .card .img{position:absolute; inset:0; background-size:cover; background-position:center; filter: saturate(1.03); transform: translateY(20px); transition: transform .8s cubic-bezier(.2,.6,.2,1)}
     .card:hover .img{transform: translateY(0) scale(1.03)}
     .card .scrim{position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.65) 100%)}
-    .card .label{position:absolute; left:12px; bottom:12px; font-weight:600; letter-spacing:.4px}
+    .card .label{position:absolute; left:10px; bottom:10px; font-weight:600; letter-spacing:.4px; font-size: clamp(11px, 1.8vw, 13px)}
 
     /* ---------- Image Popup Modal ---------- */
     .popup-overlay{position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,.9); z-index:1000; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition: opacity .3s ease, visibility .3s ease; backdrop-filter: blur(8px)}
     .popup-overlay.show{opacity:1; visibility:visible}
-    .popup-content{position:relative; max-width:90vw; max-height:90vh; background:var(--bg); border-radius:var(--radius); overflow:hidden; box-shadow: var(--shadow)}
-    .popup-image{width:100%; height:100%; object-fit:contain; max-height:80vh}
-    .popup-close{position:absolute; top:10px; right:10px; width:40px; height:40px; background:rgba(0,0,0,.7); color:white; border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; transition: background .2s ease}
+    .popup-content{position:relative; max-width:92vw; max-height:85vh; background:var(--bg); border-radius:var(--radius); overflow:hidden; box-shadow: var(--shadow)}
+    .popup-image{width:100%; height:100%; object-fit:contain; max-height:75vh}
+    .popup-close{position:absolute; top:8px; right:8px; width:36px; height:36px; background:rgba(0,0,0,.7); color:white; border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; transition: background .2s ease}
     .popup-close:hover{background:rgba(0,0,0,.9)}
-    .popup-title{position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,.8)); color:white; padding:20px; font-weight:600; font-size:18px}
+    .popup-title{position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,.8)); color:white; padding:16px; font-weight:600; font-size: clamp(13px, 2.2vw, 16px)}
 
     /* ---------- Services ---------- */
-    .services{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px}
+    .services{display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px}
     .service{padding:18px}
-    .service h3{margin:8px 0 6px; font-size:20px}
-    .service p{margin:0; color:var(--muted)}
+    .service h3{margin:6px 0 8px; font-size: clamp(16px, 2.2vw, 19px)}
+    .service p{margin:0; color:var(--muted); font-size: clamp(13px, 1.8vw, 15px)}
 
-    /* ---------- Contact ---------- */
-    .contact-wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:16px}
-    form{display:grid; gap:12px}
-    input, textarea{width:100%; padding:12px 14px; border-radius: var(--radius); background: rgba(255,255,255,.02); color: var(--text); border:1px solid rgba(212,175,55,.35); outline:none}
-    input::placeholder, textarea::placeholder{color:#98a28d}
-    textarea{min-height:120px; resize:vertical}
+    /* ---------- Contact - IMPROVED FORM PADDING ---------- */
+    .contact-wrap{display:grid; grid-template-columns:1fr; gap:18px}
+    
+    /* Form container with better internal spacing */
+    form{
+      display:grid; 
+      gap:14px; 
+      padding: 20px; /* Add internal padding to form container */
+    }
+    
+    /* Much better form element styling with proper padding */
+    input, textarea{
+      width:100%; 
+      padding:14px 16px; /* Generous internal padding */
+      margin: 4px 0; /* Small margin between elements and their borders */
+      border-radius: var(--radius); 
+      background: rgba(255,255,255,.04); 
+      color: var(--text); 
+      border:2px solid rgba(212,175,55,.25); 
+      outline:none;
+      font-size: clamp(14px, 1.8vw, 16px);
+      font-family: inherit;
+      transition: border-color .3s ease, background .3s ease;
+    }
+    
+    input:focus, textarea:focus{
+      border-color: rgba(212,175,55,.6);
+      background: rgba(255,255,255,.06);
+    }
+    
+    input::placeholder, textarea::placeholder{
+      color:#98a28d; 
+      font-size: clamp(13px, 1.8vw, 15px);
+    }
+    
+    textarea{
+      min-height:100px; 
+      resize:vertical;
+      line-height: 1.5;
+    }
 
-    .btn-send{padding:12px 18px; font-weight:700; position:relative}
+    .btn-send{
+      padding:14px 20px; 
+      font-weight:700; 
+      position:relative; 
+      font-size: clamp(14px, 1.8vw, 16px);
+      margin-top: 6px; /* Small spacing from textarea */
+    }
     .btn-send:disabled{opacity:.6; cursor:not-allowed; transform:none!important}
     
     /* Loading spinner */
-    .spinner{display:none; width:16px; height:16px; border:2px solid transparent; border-top:2px solid currentColor; border-radius:50%; animation:spin .8s linear infinite; margin-right:8px}
+    .spinner{display:none; width:14px; height:14px; border:2px solid transparent; border-top:2px solid currentColor; border-radius:50%; animation:spin .8s linear infinite; margin-right:8px}
     .btn-send.loading .spinner{display:inline-block}
     @keyframes spin{to{transform:rotate(360deg)}}
 
     /* Status messages */
-    .status-message{margin-top:12px; padding:10px; border-radius:var(--radius); font-weight:600; text-align:center; opacity:0; transform:translateY(-10px); transition: opacity .3s ease, transform .3s ease}
+    .status-message{margin-top:10px; padding:10px 14px; border-radius:var(--radius); font-weight:600; text-align:center; opacity:0; transform:translateY(-10px); transition: opacity .3s ease, transform .3s ease; font-size: clamp(12px, 1.8vw, 14px)}
     .status-message.show{opacity:1; transform:translateY(0)}
     .status-message.success{background:rgba(34,197,94,.2); color:#22c55e; border:1px solid rgba(34,197,94,.3)}
     .status-message.error{background:rgba(239,68,68,.2); color:#ef4444; border:1px solid rgba(239,68,68,.3)}
 
-    .socials{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
-    .socials a{display:flex; align-items:center; gap:8px; padding:10px 12px; font-weight:600}
-    .icon{width:22px; height:22px; fill: currentColor}
+    .socials{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content: center}
+    .socials a{display:flex; align-items:center; gap:6px; padding:10px 12px; font-weight:600; font-size: clamp(10px, 1.6vw, 13px); text-align: center; flex-direction: column}
+    .icon{width:18px; height:18px; fill: currentColor; flex-shrink: 0}
 
     /* ---------- Footer ---------- */
-    footer{padding:26px 20px; text-align:center; color:var(--muted)}
+    footer{padding:24px 16px; text-align:center; color:var(--muted); font-size: clamp(12px, 1.8vw, 14px)}
 
     /* ---------- Scroll reveal (rise up) ---------- */
-    .reveal{opacity:0; transform: translateY(22px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.6,.2,1)}
+    .reveal{opacity:0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.6,.2,1)}
     .reveal.show{opacity:1; transform: translateY(0)}
 
-    /* ---------- Responsive ---------- */
-    @media (max-width: 980px){
-      .hero{grid-template-columns: 1fr; padding-top: 26px}
-      .hero-right{order:-1}
-      .card{grid-column: span 6}
-      .services{grid-template-columns: repeat(2, minmax(0,1fr))}
-      .contact-wrap{grid-template-columns:1fr}
-      .popup-content{max-width:95vw}
+    /* ---------- Mobile Hamburger Menu ---------- */
+    .mobile-menu-btn{display:none; flex-direction:column; cursor:pointer; padding:4px; gap:3px}
+    .mobile-menu-btn span{width:20px; height:2px; background:var(--gold); border-radius:2px; transition: all .3s ease}
+    .mobile-menu-btn.active span:nth-child(1){transform: rotate(45deg) translate(4px, 4px)}
+    .mobile-menu-btn.active span:nth-child(2){opacity:0}
+    .mobile-menu-btn.active span:nth-child(3){transform: rotate(-45deg) translate(5px, -5px)}
+
+    .mobile-nav-links{display:none; position:absolute; top:100%; left:0; right:0; background:rgba(11,11,11,.95); backdrop-filter:blur(10px); border-top:1px solid rgba(212,175,55,.15); padding:16px; flex-direction:column; gap:10px}
+    .mobile-nav-links.show{display:flex}
+
+    /* ---------- Desktop Responsive (larger screens) ---------- */
+    @media (min-width: 768px){
+      .hero{
+        grid-template-columns: 1.2fr 1fr; 
+        gap:24px; 
+        padding:32px 20px;
+      }
+      .hero-left{padding:24px}
+      .hero-card{min-height:260px}
+      
+      .card{grid-column: span 4; min-height:180px}
+      .card.tall{min-height: 340px}
+      
+      .services{grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px}
+      .service{padding:20px}
+      
+      .contact-wrap{grid-template-columns:1.1fr .9fr; gap:20px}
+      
+      section{padding:36px 20px}
+      .gallery{gap:16px}
+      
+      .socials a{flex-direction: row; gap:8px; padding:12px 14px}
+      .icon{width:20px; height:20px}
     }
-    @media (max-width: 640px){
-      .card{grid-column: span 12}
-      .services{grid-template-columns: 1fr}
+
+    /* ---------- Mobile First Approach ---------- */
+    @media (max-width: 767px){
+      html{font-size: 15px} /* Slightly smaller base font for mobile */
+      
+      .nav-inner{padding:10px 14px}
       .nav-links{display:none}
-      .popup-image{max-height:70vh}
-      .socials{justify-content:center}
-      .socials a{flex-direction:column; gap:4px; padding:8px; font-size:12px}
+      .mobile-menu-btn{display:flex}
+      
+      .hero{padding:16px; gap:16px}
+      .hero-left{padding:16px}
+      .hero-card{min-height:200px}
+      
+      .card{grid-column: span 6; min-height:140px}
+      .card.tall{grid-row: span 1; min-height: 140px}
+      
+      .services{gap:12px}
+      .service{padding:14px}
+      
+      /* Better form spacing on mobile */
+      form{padding: 16px; gap:12px}
+      input, textarea{
+        padding:12px 14px;
+        margin: 3px 0;
+      }
+      .btn-send{padding:12px 18px}
+      
+      .popup-image{max-height:68vh}
+      .popup-title{padding:14px; font-size:14px}
+      
+      section{padding:20px 14px}
+      .gallery{gap:10px}
+    }
+
+    @media (max-width: 480px){
+      html{font-size: 14px} /* Even smaller for very small screens */
+      
+      .nav-inner{padding:8px 12px}
+      .brand .name{font-size:18px}
+      .brand .tag{font-size:9px}
+      
+      .hero{padding:12px; gap:12px}
+      .hero-left{padding:14px}
+      .hero-card{min-height:180px}
+      
+      .card{grid-column: span 12; min-height:160px}
+      
+      .cta-group{flex-direction:column; align-items:stretch}
+      .cta-group .btn{text-align:center; justify-content:center; padding:12px 16px}
+      
+      .popup-content{max-width:96vw; max-height:92vh}
+      .popup-image{max-height:65vh}
+      
+      .socials a{min-width:65px; padding:8px 6px; font-size:10px}
+      .icon{width:16px; height:16px}
+      
+      section{padding:16px 12px}
+      .gallery{gap:8px}
+      
+      /* Extra mobile form improvements */
+      form{padding: 14px; gap:10px}
+      input, textarea{
+        padding:11px 13px;
+        font-size: 14px;
+      }
+      textarea{min-height:90px}
+      .btn-send{padding:11px 16px; font-size:14px}
+    }
+
+    /* Ensure better touch targets on mobile */
+    @media (hover: none) and (pointer: coarse) {
+      .btn{min-height: 44px; min-width: 44px} /* Apple's recommended touch target size */
+      .btn:hover{transform:none}
+      .btn:active{transform:scale(0.98)}
+      .card:hover .img{transform: translateY(0)}
+      
+      /* Make form inputs more touch-friendly */
+      input, textarea{min-height: 44px}
+      .btn-send{min-height: 48px}
+    }
+
+    /* Prevent horizontal scroll on small screens */
+    @media (max-width: 320px){
+      html{font-size: 13px}
+      .hero{padding:8px; gap:10px}
+      .hero-left{padding:12px}
+      section{padding:12px 8px}
+      .gallery{gap:6px}
+      form{padding: 12px; gap:8px}
+      
+      /* Ensure buttons don't break layout */
+      .cta-group .btn{font-size:13px; padding:10px 14px}
+      .socials a{min-width:60px; padding:6px 4px; font-size:9px}
     }
   </style>
 </head>
@@ -176,6 +327,16 @@
         <div class="tag">Bespoke Tailoring • Lagos</div>
       </div>
       <div class="nav-links">
+        <a class="btn btn-ghost gold-border" href="#gallery">Gallery</a>
+        <a class="btn btn-ghost gold-border" href="#services">Services</a>
+        <a class="btn btn-ghost gold-border" href="#contact">Contact</a>
+      </div>
+      <div class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="mobile-nav-links">
         <a class="btn btn-ghost gold-border" href="#gallery">Gallery</a>
         <a class="btn btn-ghost gold-border" href="#services">Services</a>
         <a class="btn btn-ghost gold-border" href="#contact">Contact</a>
@@ -289,11 +450,11 @@
         </button>
         <div class="status-message" id="statusMessage"></div>
       </form>
-      <div class="gold-border reveal" style="padding:18px">
+      <div class="gold-border reveal" style="padding:20px">
         <h3 style="margin-top:0">Visit Our Studio</h3>
         <p>38 Tailors' Row, Lagos, Nigeria</p>
         <p>Mon–Sat: 9:00 – 18:00</p>
-        <div class="socials" style="margin-top:10px">
+        <div class="socials" style="margin-top:16px">
           <!-- TikTok -->
           <a class="btn btn-outline gold-border" href="#" aria-label="TikTok">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 3c1.1 1.7 2.7 2.9 4.7 3.1v3.2c-1.7-.1-3.3-.7-4.7-1.7v6.4c0 3-2.4 5.4-5.4 5.4S1.8 17 1.8 14s2.4-5.4 5.4-5.4c.3 0 .7 0 1 .1v3.2c-.3-.1-.6-.2-1-.2-1.3 0-2.4 1.1-2.4 2.4S4.9 16.5 6.2 16.5s2.4-1.1 2.4-2.4V3h3.9z"/></svg>
@@ -305,9 +466,9 @@
             @xgrahmanfashion
           </a>
           <!-- WhatsApp -->
-          <a class="btn btn-outline gold-border" href="https://wa.me/2348033959646" aria-label="WhatsApp">
+          <a class="btn btn-outline gold-border" href="https://wa.me/2348012345678" aria-label="WhatsApp">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3.9A10 10 0 0 0 3.5 17.6L2 22l4.5-1.4A10 10 0 1 0 20 3.9m-8 16.1c-1.7 0-3.3-.5-4.7-1.6L7 18l-2.2.7.7-2.1-.3-.5A7.9 7.9 0 1 1 12 20m4.5-5.8c-.2-.1-1.4-.8-1.6-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.8 1-.2.2-.3.2-.6.1-.2-.1-1-.4-2-1.2-.7-.5-1.2-1.2-1.4-1.4-.2-.2 0-.3.1-.4.1-.1.2-.2.3-.3.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.1 0-.2 0-.3 0-.1-.6-1.6-.8-2.1-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.3 0-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7 1.2.5 1.7.6 2 .5.3 0 1-.4 1.1-.7.1-.3.1-.6.1-.7 0-.1-.1-.1-.2-.2"/></svg>
-            +234 803 395 9646
+            +234 801 234 5678
           </a>
           <!-- Facebook -->
           <a class="btn btn-outline gold-border" href="#" aria-label="Facebook">
@@ -324,6 +485,33 @@
   </footer>
 
   <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileNavLinks = document.querySelector('.mobile-nav-links');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileNavLinks.classList.toggle('show');
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenuBtn.classList.remove('active');
+          mobileNavLinks.classList.remove('show');
+        });
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!mobileMenuBtn.contains(e.target) && !mobileNavLinks.contains(e.target)) {
+          mobileMenuBtn.classList.remove('active');
+          mobileNavLinks.classList.remove('show');
+        }
+      });
+    });
+
     // Put uppercase letters inside spans with .cap for the brand name (safety if text changes)
     (function(){
       const brandEls = document.querySelectorAll('.name');
@@ -491,10 +679,22 @@
       if(heroMedia) heroMedia.style.transform = `translateY(${y}px) scale(1.05)`;
     });
 
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
-
